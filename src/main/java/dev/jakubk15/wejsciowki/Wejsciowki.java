@@ -2,6 +2,7 @@ package dev.jakubk15.wejsciowki;
 
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
+import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -27,6 +28,8 @@ public class Wejsciowki extends SimplePlugin implements Listener {
 		final Set<UUID> uuids_nether = new HashSet<>();
 		final Set<UUID> uuids_end = new HashSet<>();
 		final Player p = event.getPlayer();
+		final World from = event.getFrom();
+		final Location loc = p.getLocation();
 		final World w = p.getWorld();
 		final RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
 
@@ -37,6 +40,8 @@ public class Wejsciowki extends SimplePlugin implements Listener {
 					if (r.transactionSuccess()) {
 						p.sendMessage(Lang.of("MessageNether"));
 					}
+				} else {
+					p.teleport(loc);
 				}
 
 			}
@@ -47,6 +52,8 @@ public class Wejsciowki extends SimplePlugin implements Listener {
 					if (r.transactionSuccess()) {
 						p.sendMessage(Lang.of("MessageEnd"));
 					}
+				} else {
+					p.teleport(loc);
 				}
 			}
 		}
